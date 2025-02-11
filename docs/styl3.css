@@ -1,0 +1,63 @@
+.h1{
+    font-family: "Bradley Hand ITC";
+}
+body {
+    background-color: #1a1a1a;
+    color: #fff;
+    font-family: "Bradley Hand ITC";
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    height: 600px;
+    margin: 0;
+}
+
+.TicTacToeGrid {
+    display: grid;
+    grid-template-columns: repeat(3, 100px);
+    grid-template-rows: repeat(3, 100px);
+    gap: 5px;
+    background-color: #d8934e;
+    padding: 5px;
+    border-radius: 9px;
+    box-shadow: 0 0 15px #d8934e; /*google*/
+}
+
+.cell {
+    background-color: #1a1a1a;
+    border: 2px solid #bd670f;
+    font-family: "Bradley Hand ITC";
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 60px;
+    font-weight: bold;
+    color: #ffffff;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+.player-turn {
+    background-color: #8a5b2b;
+    padding: 10px 20px;
+    border-radius: 8px;
+    font-size: 20px;
+    font-weight: bold;
+    box-shadow: 0 0 10px  #d8934e; /*google*/
+    text-align: center;
+}
+.restartButton{
+    font-family: "Bradley Hand ITC";
+    background-color: #d8934e;
+    color: white;
+    font-size: 20px;
+    border-radius: 200px;
+}
+.cell:hover {
+    background-color: #d8934e;
+    transform: scale(1.0);
+}
+.cell:disabled {
+    background-color: #ddd;
+    cursor: not-allowed;
+}
