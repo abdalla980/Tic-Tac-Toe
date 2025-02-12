@@ -2,7 +2,10 @@ const cells = Array.from(document.querySelectorAll(".cell"));
 const playerTurnElement = document.querySelector(".player-turn");
 const restartButton = document.querySelector(".restartButton");
 
-let currentPlayer = "X || O" ;
+
+let currentPlayer = "X" ;
+let gameOver = false
+
 let gameBoard = Array(9).fill(null);
 const winningCombinations = [
   [0, 1, 2],
@@ -46,17 +49,19 @@ function updateBoard() {
 }
 cells.forEach((cell, index) => {
   cell.addEventListener("mouseover", () => {
-    if (!gameBoard[index]) {
+    if (!gameBoard[index] && !gameOver) {
       cell.textContent = currentPlayer;
     }
   });
+
   cell.addEventListener("mouseout", () => {
     if (!gameBoard[index]) {
       cell.textContent = "";
     }
   });
+
   cell.addEventListener("click", () => {
-    if (gameBoard[index] || checkwinner()) return;
+    if (gameBoard[index] || checkwinner() || gameOver) return;
     gameBoard[index] = currentPlayer;
     cell.textContent = currentPlayer;
     const winner = checkwinner();
@@ -65,27 +70,32 @@ cells.forEach((cell, index) => {
         alert(`${winner} wins!`);
         disableCells();
       }, 90);
+      gameOver = true;
     } else if (gameBoard.every((cell2) => cell2 !== null)) {
       setTimeout(() => {
         alert("It's a draw!");
         disableCells();
       }, 99);
+      gameOver = true;
     } else {
       currentPlayer = currentPlayer === "X" ? "O" : "X";
       playerTurnElement.textContent = `Player ${currentPlayer}'s Turn`;
     }
     saveGameState();
   });
-});
+
+
+  });
+
 function disableCells() {
   cells.forEach((cell) => {
     cell.setAttribute("disabled", "");
-    cell.style.pointerEvents = 'none'
   });
 }
 restartButton.addEventListener("click", () => {
   gameBoard.fill(null);
   currentPlayer = "X";
+  gameOver = false
   playerTurnElement.textContent = `Player X's Turn`;
   cells.forEach((cell) => {
     cell.textContent = "";
@@ -96,4 +106,3 @@ restartButton.addEventListener("click", () => {
 window.addEventListener("load", () => {
   loadGameState();
 });
-
